@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net462;net6.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
+    <PackageReference Include="Castle.Core" Version="5.0.0" />
+    <PackageReference Include="Moq" Version="4.18.1" />
+    <PackageReference Include="stakx.DynamicProxy.AsyncInterceptor" Version="0.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kunet.AsyncInterceptor\Kunet.AsyncInterceptor.csproj" />
+  </ItemGroup>
+
+</Project>
