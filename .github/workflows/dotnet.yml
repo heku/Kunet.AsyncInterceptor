@@ -1,0 +1,42 @@
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+# https://cli.github.com/manual/gh_release_create
+# https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+
+name: Build on Push
+
+on: push
+
+jobs:
+  build-test-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Build and Pack
+      run: |
+          dotnet build -c Release --version-suffix ${{github.run_number}}0
+          dotnet test -c Release --no-build --verbosity normal
+          dotnet pack -c Release --no-build -o output './Kunet.AsyncInterceptor/Kunet.AsyncInterceptor.csproj'
+
+    - name: Release and Publish
+      if: startsWith(github.ref, 'refs/tags/v') && github.repository_owner == github.actor
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+          gh release create ${{ github.ref_name }} --generate-notes output/*.nupkg
+          dotnet nuget push output/*.nupkg --skip-duplicate --no-symbols --source https://nuget.pkg.github.com/heku/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push output/*.nupkg --skip-duplicate --no-symbols --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: nuget
+        path: output/*.nupkg
