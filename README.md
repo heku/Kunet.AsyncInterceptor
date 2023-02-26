@@ -1,5 +1,8 @@
 ## Kunet.AsyncInterceptor
 
+[![Build on Push](https://github.com/heku/Kunet.AsyncInterceptor/actions/workflows/dotnet.yml/badge.svg?branch=dev)](https://github.com/heku/Kunet.AsyncInterceptor/actions/workflows/dotnet.yml)
+[![Nuget Version](https://shields.io/nuget/v/Kunet.AsyncInterceptor)](https://www.nuget.org/packages/Kunet.AsyncInterceptor)
+
 Inspired by [stakx.DynamicProxy.AsyncInterceptor](https://github.com/stakx/DynamicProxy.AsyncInterceptor), but rewrite with less reflection to get better performance.
 
 This library allows you to smoothly connect [Castle.DynamicProxy](https://github.com/castleproject/Core) with your `async/await` code,
