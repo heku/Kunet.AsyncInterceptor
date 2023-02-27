@@ -11,7 +11,7 @@ public interface IAsyncTaskBuilder
 
     void SetResult(object result);
 
-    void SetException(Exception ex);
+    void SetException(Exception exception);
 
     void AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine)
             where TAwaiter : ICriticalNotifyCompletion

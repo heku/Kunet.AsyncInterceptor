@@ -17,7 +17,7 @@ internal sealed class AsyncTaskBuilderOfValueTask : IAsyncTaskBuilder
 
     public void SetResult(object result) => _builder.SetResult();
 
-    public void SetException(Exception ex) => _builder.SetException(ex);
+    public void SetException(Exception exception) => _builder.SetException(exception);
 
     public void AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine)
         where TAwaiter : ICriticalNotifyCompletion
