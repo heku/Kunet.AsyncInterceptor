@@ -32,8 +32,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
           gh release create ${{ github.ref_name }} --generate-notes output/*.nupkg
-          #dotnet nuget push output/*.nupkg --skip-duplicate --no-symbols --source https://nuget.pkg.github.com/heku/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
-          dotnet nuget push output/*.nupkg --skip-duplicate --no-symbols --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+          #dotnet nuget push output/*.nupkg --no-symbols --source https://nuget.pkg.github.com/heku/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push output/*.nupkg --no-symbols --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3

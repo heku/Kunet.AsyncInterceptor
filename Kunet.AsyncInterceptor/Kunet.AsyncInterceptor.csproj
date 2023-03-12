@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <VersionPrefix>0.0.20</VersionPrefix>
+    <VersionPrefix>0.0.30</VersionPrefix>
     <Authors>Heku</Authors>
     <Description>AsyncInterceptor for Castle.DynamicProxy</Description>
     <RepositoryUrl>https://github.com/heku/Kunet.AsyncInterceptor</RepositoryUrl>
