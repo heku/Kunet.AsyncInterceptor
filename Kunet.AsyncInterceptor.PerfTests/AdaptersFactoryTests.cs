@@ -12,26 +12,24 @@ public class AdaptersFactoryTests
     public IInvocation Invocation { get; } = Mock.Of<IInvocation>(x => x.Method.ReturnType == typeof(Task<string>));
 
     [Benchmark]
-    public void NewFactory() => AdaptersFactory.TryCreate(Invocation, out _, out _);
+    public void NewFactory() => AsyncAdapter.TryCreate(Invocation, out _);
 
     [Benchmark]
-    public void OldFactory() => LegacyFactory.TryCreate(Invocation, out _, out _);
+    public void OldFactory() => LegacyFactory.TryCreate(Invocation, out _);
 
     internal static class LegacyFactory
     {
-        public static bool TryCreate(IInvocation invocation, out IAsyncTaskBuilder builder, out IAsyncInvocation asyncInvocation)
+        public static bool TryCreate(IInvocation invocation, out IAsyncAdapter adapter)
         {
             var returnType = invocation.Method.ReturnType;
             if (returnType == typeof(Task))
             {
-                builder = new AsyncTaskBuilderOfTask();
-                asyncInvocation = new AsyncInvocationOfTask(invocation);
+                adapter = new AsyncAdapterOfTask(invocation);
                 return true;
             }
             if (returnType == typeof(ValueTask))
             {
-                builder = new AsyncTaskBuilderOfValueTask();
-                asyncInvocation = new AsyncInvocationOfValueTask(invocation);
+                adapter = new AsyncAdapterOfValueTask(invocation);
                 return true;
             }
             if (returnType.IsGenericType && returnType.GenericTypeArguments.Length == 1)
@@ -40,32 +38,23 @@ public class AdaptersFactoryTests
                 var argumentType = returnType.GenericTypeArguments[0];
                 if (genericType == typeof(Task<>))
                 {
-                    builder = CreateAsyncTaskBuilder(typeof(AsyncTaskBuilderOfTask<>), argumentType);
-                    asyncInvocation = CreateAsyncInvocation(typeof(AsyncInvocationOfTask<>), argumentType, invocation);
+                    adapter = CreateAsyncAdapter(typeof(AsyncAdapterOfTask<>), argumentType, invocation);
                     return true;
                 }
                 if (genericType == typeof(ValueTask<>))
                 {
-                    builder = CreateAsyncTaskBuilder(typeof(AsyncTaskBuilderOfValueTask<>), argumentType);
-                    asyncInvocation = CreateAsyncInvocation(typeof(AsyncInvocationOfValueTask<>), argumentType, invocation);
+                    adapter = CreateAsyncAdapter(typeof(AsyncAdapterOfValueTask<>), argumentType, invocation);
                     return true;
                 }
             }
-            builder = null;
-            asyncInvocation = null;
+            adapter = null;
             return false;
         }
 
-        private static IAsyncTaskBuilder CreateAsyncTaskBuilder(Type genericType, Type argumentType)
+        private static IAsyncAdapter CreateAsyncAdapter(Type genericType, Type argumentType, IInvocation invocation)
         {
             var closedType = genericType.MakeGenericType(argumentType);
-            return (IAsyncTaskBuilder)Activator.CreateInstance(closedType);
-        }
-
-        private static IAsyncInvocation CreateAsyncInvocation(Type genericType, Type argumentType, IInvocation invocation)
-        {
-            var closedType = genericType.MakeGenericType(argumentType);
-            return (IAsyncInvocation)Activator.CreateInstance(closedType, invocation);
+            return (IAsyncAdapter)Activator.CreateInstance(closedType, invocation);
         }
     }
 }

@@ -14,9 +14,7 @@ public class MyTaskMethodBuilder<T>
     public void Start<TStateMachine>(ref TStateMachine stateMachine)
         where TStateMachine : IAsyncStateMachine => stateMachine.MoveNext();
 
-#pragma warning disable IDE0060 // Remove unused parameter
-    public void SetStateMachine(IAsyncStateMachine stateMachine)
-#pragma warning restore IDE0060 // Remove unused parameter
+    public void SetStateMachine(IAsyncStateMachine _)
     {
     }
 

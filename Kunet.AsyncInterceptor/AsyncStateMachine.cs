@@ -6,15 +6,13 @@ namespace Kunet.AsyncInterceptor;
 
 internal struct AsyncStateMachine : IAsyncStateMachine
 {
-    private readonly IAsyncTaskBuilder _builder;
-    private readonly IAsyncInvocation _invocation;
+    private readonly AsyncAdapter _adapter;
     private readonly Func<IAsyncInvocation, ValueTask> _interceptAsync;
     private ValueTask? _interceptingTask;
 
-    public AsyncStateMachine(IAsyncTaskBuilder builder, IAsyncInvocation invocation, Func<IAsyncInvocation, ValueTask> interceptAsync)
+    public AsyncStateMachine(AsyncAdapter adapter, Func<IAsyncInvocation, ValueTask> interceptAsync)
     {
-        _builder = builder;
-        _invocation = invocation;
+        _adapter = adapter;
         _interceptAsync = interceptAsync;
         _interceptingTask = null;
     }
@@ -23,21 +21,21 @@ internal struct AsyncStateMachine : IAsyncStateMachine
     {
         try
         {
-            _interceptingTask ??= _interceptAsync(_invocation);
+            _interceptingTask ??= _interceptAsync(_adapter);
             var awaiter = _interceptingTask.Value.GetAwaiter();
             if (awaiter.IsCompleted)
             {
                 awaiter.GetResult(); // throw exception if there is.
-                _builder.SetResult(_invocation.AsyncResult);
+                _adapter.SetResult(_adapter.AsyncResult);
             }
             else
             {
-                _builder.AwaitUnsafeOnCompleted(ref awaiter, ref this);
+                _adapter.AwaitUnsafeOnCompleted(ref awaiter, ref this);
             }
         }
         catch (Exception ex)
         {
-            _builder.SetException(ex);
+            _adapter.SetException(ex);
         }
     }
 

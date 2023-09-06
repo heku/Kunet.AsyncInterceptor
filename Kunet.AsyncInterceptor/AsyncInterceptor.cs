@@ -10,12 +10,12 @@ public abstract class AsyncInterceptor : IInterceptor
 {
     void IInterceptor.Intercept(IInvocation invocation)
     {
-        if (AdaptersFactory.TryCreate(invocation, out var builder, out var asyncInvocation))
+        if (AsyncAdapter.TryCreate(invocation, out var adapter))
         {
-            AsyncStateMachine stateMachine = new(builder, asyncInvocation, InterceptAsync);
-            builder.Start(ref stateMachine);
-            Debug.Assert(builder.Task is not null);
-            invocation.ReturnValue = builder.Task;
+            AsyncStateMachine stateMachine = new(adapter, InterceptAsync);
+            adapter.Start(ref stateMachine);
+            Debug.Assert(adapter.Task is not null);
+            invocation.ReturnValue = adapter.Task;
         }
         else
         {

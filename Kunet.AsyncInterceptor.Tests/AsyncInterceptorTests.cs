@@ -42,7 +42,7 @@ public class AsyncInterceptorTests
     public async Task InterceptCustomTaskLikeReturnValueExample()
     {
         // MyTask<T> is an example custom task-like type
-        AdaptersFactory.Register(typeof(MyTask<>), typeof(AsyncTaskBuilderOfMyTask<>), typeof(AsyncInvocationOfMyTask<>));
+        AsyncAdapter.Register(typeof(MyTask<>), typeof(AsyncAdapterOfMyTask<>));
 
         var target = Mock.Of<IGet>(x =>
             x.GetTaskLikeType<string>() == new MyTask<string>("value")
