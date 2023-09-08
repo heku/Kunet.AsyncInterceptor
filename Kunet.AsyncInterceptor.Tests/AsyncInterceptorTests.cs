@@ -38,11 +38,16 @@ public class AsyncInterceptorTests
         Assert.Equal("1 2 3 value 3 2 1", await proxy.GetValueTask<string>());
     }
 
-    [Fact]
-    public async Task InterceptCustomTaskLikeReturnValueExample()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task InterceptCustomTaskLikeReturnValueExample(bool useCustomAsyncAdapter)
     {
-        // MyTask<T> is an example custom task-like type
-        AsyncAdapter.Register(typeof(MyTask<>), typeof(AsyncAdapterOfMyTask<>));
+        if (useCustomAsyncAdapter)
+        {
+            // MyTask<T> is an example custom task-like type
+            AsyncAdapter.Register(typeof(MyTask<>), typeof(AsyncAdapterOfMyTask<>));
+        }
 
         var target = Mock.Of<IGet>(x =>
             x.GetTaskLikeType<string>() == new MyTask<string>("value")
