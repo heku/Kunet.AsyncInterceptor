@@ -4,9 +4,10 @@ using IInvocation = Castle.DynamicProxy.IInvocation;
 
 namespace Kunet.AsyncInterceptor.PerfTests;
 
-[ShortRunJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net462)]
-[ShortRunJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net60)]
+[ShortRunJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net481)]
+[ShortRunJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net80)]
 [MemoryDiagnoser]
+[HideColumns("Error", "StdDev", "Medium")]
 public class AdaptersFactoryTests
 {
     public IInvocation Invocation { get; } = Mock.Of<IInvocation>(x => x.Method.ReturnType == typeof(Task<string>));
