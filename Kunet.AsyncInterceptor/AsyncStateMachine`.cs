@@ -5,14 +5,14 @@ using System.Runtime.InteropServices;
 namespace Kunet.AsyncInterceptor;
 
 [StructLayout(LayoutKind.Auto)]
-internal struct AsyncStateMachine : IAsyncStateMachine
+internal struct AsyncStateMachine<T> : IAsyncStateMachine where T : IAsyncAdapter
 {
-    private readonly AsyncAdapter _adapter;
+    private readonly T _adapter;
     private readonly AsyncInterceptor _interceptor;
     private bool _intercepting;
     private ValueTaskAwaiter _interceptingAwaiter;
 
-    public AsyncStateMachine(AsyncAdapter adapter, AsyncInterceptor interceptor)
+    public AsyncStateMachine(in T adapter, AsyncInterceptor interceptor)
     {
         _adapter = adapter;
         _interceptor = interceptor;

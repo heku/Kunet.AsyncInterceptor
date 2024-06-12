@@ -114,18 +114,18 @@ public class AsyncInterceptorTests
 //| KunetRunningValueTaskT | ShortRun-.NET 8.0             | .NET 8.0             | RunningValueTask<T> |   436.08 ns | 0.0725 |    1216 B |
 //| StakxRunningValueTaskT | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | RunningValueTask<T> | 7,132.29 ns | 0.5951 |    3755 B |
 //| KunetRunningValueTaskT | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | RunningValueTask<T> | 1,564.72 ns | 0.3147 |    1982 B |
-//| StakxTask              | ShortRun-.NET 8.0             | .NET 8.0             | Task                |   940.71 ns | 0.0448 |     752 B |
-//| KunetTask              | ShortRun-.NET 8.0             | .NET 8.0             | Task                |    77.63 ns | 0.0196 |     328 B |
-//| StakxTask              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task                | 3,320.81 ns | 0.1793 |    1140 B |
-//| KunetTask              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task                |   166.57 ns | 0.0560 |     353 B |
+//| StakxTask              | ShortRun-.NET 8.0             | .NET 8.0             | Task                |   901.41 ns | 0.0448 |     752 B |
+//| KunetTask              | ShortRun-.NET 8.0             | .NET 8.0             | Task                |    57.36 ns | 0.0157 |     264 B |
+//| StakxTask              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task                | 3,259.66 ns | 0.1793 |    1140 B |
+//| KunetTask              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task                |   112.87 ns | 0.0459 |     289 B |
 //| StakxTaskT             | ShortRun-.NET 8.0             | .NET 8.0             | Task<T>             | 1,352.91 ns | 0.0668 |    1144 B |
 //| KunetTaskT             | ShortRun-.NET 8.0             | .NET 8.0             | Task<T>             |   168.32 ns | 0.0348 |     584 B |
 //| StakxTaskT             | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task<T>             | 4,475.84 ns | 0.3281 |    2071 B |
 //| KunetTaskT             | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task<T>             |   601.14 ns | 0.1516 |     955 B |
-//| StakxValueTask         | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask           | 1,832.72 ns | 0.0629 |    1080 B |
-//| KunetValueTask         | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask           |    86.66 ns | 0.0234 |     392 B |
-//| StakxValueTask         | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask           | 3,652.26 ns | 0.2022 |    1276 B |
-//| KunetValueTask         | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask           |   162.22 ns | 0.0675 |     425 B |
+//| StakxValueTask         | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask           | 1,740.57 ns | 0.0629 |    1080 B |
+//| KunetValueTask         | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask           |    60.98 ns | 0.0196 |     328 B |
+//| StakxValueTask         | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask           | 3,711.97 ns | 0.2022 |    1276 B |
+//| KunetValueTask         | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask           |   124.07 ns | 0.0572 |     361 B |
 //| StakxValueTaskT        | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask<T>        | 2,110.97 ns | 0.0877 |    1472 B |
 //| KunetValueTaskT        | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask<T>        |   187.48 ns | 0.0391 |     656 B |
 //| StakxValueTaskT        | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask<T>        | 4,636.58 ns | 0.3204 |    2055 B |

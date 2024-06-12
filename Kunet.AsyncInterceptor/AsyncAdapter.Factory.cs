@@ -15,8 +15,6 @@ public partial class AsyncAdapter
 
     static AsyncAdapter()
     {
-        Register<Task>(x => new AsyncAdapterOfTask(x));                     // Task
-        Register<ValueTask>(x => new AsyncAdapterOfValueTask(x));           // ValueTask
         Register(typeof(Task<>), typeof(AsyncAdapterOfTask<>));             // Task<T>
         Register(typeof(ValueTask<>), typeof(AsyncAdapterOfValueTask<>));   // ValueTask<T>
     }
