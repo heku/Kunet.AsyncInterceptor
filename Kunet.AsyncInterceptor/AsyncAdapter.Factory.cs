@@ -1,5 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,13 +11,13 @@ namespace Kunet.AsyncInterceptor;
 
 public partial class AsyncAdapter
 {
-    internal static readonly Dictionary<Type, Func<IInvocation, AsyncAdapter>> FactoryCache = new();    // Task    -> (invocation => new AsyncAdapterOfTask(invocation))
-    internal static readonly Dictionary<Type, Type> OpenGenericTypesRegistration = new();               // Task<T> -> AsyncAdapterOfTask<T>
+    internal static readonly ConcurrentDictionary<Type, Func<IInvocation, AsyncAdapter>> FactoryCache = []; // Task    -> (invocation => new AsyncAdapterOfTask(invocation))
+    internal static readonly Dictionary<Type, Type> OpenGenericTypesRegistration = [];                      // Task<T> -> AsyncAdapterOfTask<T>
 
     static AsyncAdapter()
     {
-        Register(typeof(Task<>), typeof(AsyncAdapterOfTask<>));             // Task<T>
-        Register(typeof(ValueTask<>), typeof(AsyncAdapterOfValueTask<>));   // ValueTask<T>
+        Register(typeof(Task<>), typeof(AsyncAdapterOfTask<>));           // Task<T>
+        Register(typeof(ValueTask<>), typeof(AsyncAdapterOfValueTask<>)); // ValueTask<T>
     }
 
     public static void Register<T>(Func<IInvocation, AsyncAdapter> factory) => FactoryCache[typeof(T)] = factory;
