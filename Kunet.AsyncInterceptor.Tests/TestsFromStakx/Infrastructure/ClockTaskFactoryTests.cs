@@ -23,7 +23,7 @@ namespace stakx.DynamicProxy.Tests
             var task = clock.TaskFactory.CreateCompletingTask(1);
             clock.AdvanceTo(1);
 
-            Assert.True(task.IsCompletedSuccessfully);
+            Assert.True(task.IsCompleted && task.Status == TaskStatus.RanToCompletion); // IsCompletedSuccessfully
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace stakx.DynamicProxy.Tests
             var task = clock.TaskFactory.CreateCompletingTask(1);
             clock.AdvanceTo(10);
 
-            Assert.True(task.IsCompletedSuccessfully);
+            Assert.True(task.IsCompleted && task.Status == TaskStatus.RanToCompletion); // IsCompletedSuccessfully
         }
 
         [Fact]
@@ -43,7 +43,8 @@ namespace stakx.DynamicProxy.Tests
             var task = clock.TaskFactory.CreateCompletingTask(1, "42");
             clock.AdvanceTo(1);
 
-            Assert.True(task.IsCompletedSuccessfully);
+            Assert.True(task.IsCompleted && task.Status == TaskStatus.RanToCompletion); // IsCompletedSuccessfully
+
             Assert.Equal("42", task.Result);
         }
 
@@ -54,7 +55,7 @@ namespace stakx.DynamicProxy.Tests
             var task = clock.TaskFactory.CreateCompletingTask(1, "42");
             clock.AdvanceTo(10);
 
-            Assert.True(task.IsCompletedSuccessfully);
+            Assert.True(task.IsCompleted && task.Status == TaskStatus.RanToCompletion); // IsCompletedSuccessfully
             Assert.Equal("42", task.Result);
         }
 

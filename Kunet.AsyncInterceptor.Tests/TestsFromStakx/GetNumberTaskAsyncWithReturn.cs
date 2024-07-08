@@ -23,7 +23,7 @@ namespace stakx.DynamicProxy.Tests
             var proxy = this.CreateInterfaceProxy<IGetNumber>(new Return(42));
             var task = proxy.GetNumberTaskAsync();
 
-            Assert.True(task.IsCompletedSuccessfully);
+            Assert.True(task.IsCompleted && task.Status == TaskStatus.RanToCompletion); // IsCompletedSuccessfully
             Assert.Equal(42, task.Result);
         }
     }

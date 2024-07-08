@@ -38,7 +38,7 @@ namespace stakx.DynamicProxy.Tests
 
             this.Clock.AdvanceTo(1);
 
-            Assert.True(task.IsCompletedSuccessfully);
+            Assert.True(task.IsCompleted && task.Status == TaskStatus.RanToCompletion); // IsCompletedSuccessfully
             Assert.Equal(42, task.Result);
         }
     }
