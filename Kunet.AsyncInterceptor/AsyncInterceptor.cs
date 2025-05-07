@@ -30,7 +30,7 @@ public abstract class AsyncInterceptor : IInterceptor
         }
         else if (AsyncAdapter.TryCreate(invocation, out var adapter))
         {
-            AsyncStateMachine stateMachine = new(adapter, this);
+            var stateMachine = new AsyncStateMachine<AsyncAdapter>(in adapter, this);
             adapter.Start(ref stateMachine);
             Debug.Assert(adapter.Task is not null);
             invocation.ReturnValue = adapter.Task;
