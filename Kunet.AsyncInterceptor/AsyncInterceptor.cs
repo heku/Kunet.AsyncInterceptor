@@ -15,7 +15,8 @@ public abstract class AsyncInterceptor : IInterceptor
         if (returnType == typeof(Task))
         {
             var adapter = new AsyncAdapterOfTask(invocation);
-            var stateMachine = new AsyncStateMachine<AsyncAdapterOfTask>(in adapter, this);
+            var awaiter = InterceptAsync(adapter).GetAwaiter();
+            var stateMachine = new AsyncStateMachine<AsyncAdapterOfTask>(in adapter, in awaiter);
             adapter.Start(ref stateMachine);
             Debug.Assert(adapter.Task is not null);
             invocation.ReturnValue = adapter.Task;
@@ -23,14 +24,16 @@ public abstract class AsyncInterceptor : IInterceptor
         else if (returnType == typeof(ValueTask))
         {
             var adapter = new AsyncAdapterOfValueTask(invocation);
-            var stateMachine = new AsyncStateMachine<AsyncAdapterOfValueTask>(in adapter, this);
+            var awaiter = InterceptAsync(adapter).GetAwaiter();
+            var stateMachine = new AsyncStateMachine<AsyncAdapterOfValueTask>(in adapter, in awaiter);
             adapter.Start(ref stateMachine);
             Debug.Assert(adapter.Task is not null);
             invocation.ReturnValue = adapter.Task;
         }
         else if (AsyncAdapter.TryCreate(invocation, out var adapter))
         {
-            var stateMachine = new AsyncStateMachine<AsyncAdapter>(in adapter, this);
+            var awaiter = InterceptAsync(adapter).GetAwaiter();
+            var stateMachine = new AsyncStateMachine<AsyncAdapter>(in adapter, in awaiter);
             adapter.Start(ref stateMachine);
             Debug.Assert(adapter.Task is not null);
             invocation.ReturnValue = adapter.Task;
@@ -44,8 +47,4 @@ public abstract class AsyncInterceptor : IInterceptor
     protected abstract void Intercept(IInvocation invocation);
 
     protected abstract ValueTask InterceptAsync(IAsyncInvocation invocation);
-
-    // Compat.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal ValueTask InternalInterceptAsync(IAsyncInvocation invocation) => InterceptAsync(invocation);
 }

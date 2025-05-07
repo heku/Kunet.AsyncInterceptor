@@ -8,33 +8,26 @@ namespace Kunet.AsyncInterceptor;
 internal struct AsyncStateMachine<T> : IAsyncStateMachine where T : IAsyncAdapter
 {
     private readonly T _adapter;
-    private readonly AsyncInterceptor _interceptor;
-    private bool _intercepting;
-    private ValueTaskAwaiter _interceptingAwaiter;
+    private ValueTaskAwaiter _awaiter;
 
-    public AsyncStateMachine(in T adapter, AsyncInterceptor interceptor)
+    public AsyncStateMachine(in T adapter, in ValueTaskAwaiter awaiter)
     {
         _adapter = adapter;
-        _interceptor = interceptor;
+        _awaiter = awaiter;
     }
 
     public void MoveNext()
     {
         try
         {
-            if (_intercepting is false)
+            if (_awaiter.IsCompleted)
             {
-                _intercepting = true;
-                _interceptingAwaiter = _interceptor.InternalInterceptAsync(_adapter).GetAwaiter();
-            }
-            if (_interceptingAwaiter.IsCompleted)
-            {
-                _interceptingAwaiter.GetResult(); // throw exception if there is.
+                _awaiter.GetResult(); // throw exception if there is.
                 _adapter.SetResult(_adapter.AsyncResult);
             }
             else
             {
-                _adapter.AwaitUnsafeOnCompleted(ref _interceptingAwaiter, ref this);
+                _adapter.AwaitUnsafeOnCompleted(ref _awaiter, ref this);
             }
         }
         catch (Exception ex)
