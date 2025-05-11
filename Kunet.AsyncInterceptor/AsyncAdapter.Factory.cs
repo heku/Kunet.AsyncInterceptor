@@ -4,12 +4,11 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Kunet.AsyncInterceptor;
 
-public partial class AsyncAdapter
+internal partial class AsyncAdapter
 {
     internal static readonly ConcurrentDictionary<Type, Func<IInvocation, AsyncAdapter>> FactoryCache = []; // Task    -> (invocation => new AsyncAdapterOfTask(invocation))
     internal static readonly Dictionary<Type, Type> OpenGenericTypesRegistration = [];                      // Task<T> -> AsyncAdapterOfTask<T>
@@ -40,23 +39,6 @@ public partial class AsyncAdapter
                 factory = CreateFactory(openGenericAsyncAdapterType, returnType.GenericTypeArguments);
                 FactoryCache[returnType] = factory;
                 adapter = factory.Invoke(invocation);
-                return true;
-            }
-        }
-        var builderType =
-            (Attribute.GetCustomAttribute(invocation.Method, typeof(AsyncMethodBuilderAttribute), false) as AsyncMethodBuilderAttribute)?.BuilderType ??
-            (Attribute.GetCustomAttribute(invocation.Method.ReturnType, typeof(AsyncMethodBuilderAttribute), false) as AsyncMethodBuilderAttribute)?.BuilderType;
-        if (builderType is not null)
-        {
-            if (builderType.IsGenericType is false)
-            {
-                adapter = new AsyncAdapterFallback(builderType, invocation);
-                return true;
-            }
-            if (builderType.IsGenericType && returnType.IsGenericType && returnType.GenericTypeArguments.Length == 1)
-            {
-                builderType = builderType.MakeGenericType(returnType.GenericTypeArguments);
-                adapter = new AsyncAdapterFallback(builderType, invocation);
                 return true;
             }
         }

@@ -7,6 +7,4 @@ public interface IGet
     Task<T> GetTask<T>();
 
     ValueTask<T> GetValueTask<T>();
-
-    MyTask<T> GetTaskLikeType<T>();
 }

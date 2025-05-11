@@ -1,25 +1,17 @@
 ﻿using Castle.DynamicProxy;
-using System;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Kunet.AsyncInterceptor;
 
-internal sealed class AsyncAdapterOfTask<T> : AsyncAdapter
+internal sealed class AsyncAdapterOfTask<T>(IInvocation invocation) : AsyncAdapter(invocation, SetAsyncResult)
 {
-    private readonly AsyncTaskMethodBuilder<T> _builder = AsyncTaskMethodBuilder<T>.Create();
+    private static async ValueTask SetAsyncResult(IAsyncInvocation i) => i.AsyncResult = await ((Task<T>)i.Invocation.ReturnValue).ConfigureAwait(false);
 
-    public AsyncAdapterOfTask(IInvocation invocation) : base(invocation) => Task = _builder.Task;
+    public override object ConvertToReturnTask(ValueTask interceptingTask) => ConvertToTask(interceptingTask);
 
-    protected override async ValueTask SetAsyncResult() => AsyncResult = await ((Task<T>)Invocation.ReturnValue).ConfigureAwait(false);
-
-    public override object Task { get; }
-
-    public override void Start<TStateMachine>(ref TStateMachine stateMachine) => _builder.Start(ref stateMachine);
-
-    public override void SetResult(object result) => _builder.SetResult((T)result);
-
-    public override void SetException(Exception exception) => _builder.SetException(exception);
-
-    public override void AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine) => _builder.AwaitUnsafeOnCompleted(ref awaiter, ref stateMachine);
+    public async Task<T> ConvertToTask(ValueTask interceptingTask)
+    {
+        await interceptingTask.ConfigureAwait(false);
+        return (T)(AsyncResult ?? default(T));
+    }
 }

@@ -106,31 +106,31 @@ public class AsyncInterceptorTests
 
 //| Method                 | Job                           | Runtime              | Categories          | Mean        | Gen0   | Allocated |
 //|----------------------- |------------------------------ |--------------------- |-------------------- |------------:|-------:|----------:|
-//| StakxRunningTaskT      | ShortRun-.NET 8.0             | .NET 8.0             | RunningTask<T>      | 2,011.65 ns | 0.1221 |    2104 B |
-//| KunetRunningTaskT      | ShortRun-.NET 8.0             | .NET 8.0             | RunningTask<T>      |   401.71 ns | 0.0629 |    1056 B |
-//| StakxRunningTaskT      | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | RunningTask<T>      | 6,720.22 ns | 0.5493 |    3490 B |
-//| KunetRunningTaskT      | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | RunningTask<T>      | 1,494.21 ns | 0.2880 |    1821 B |
-//| StakxRunningValueTaskT | ShortRun-.NET 8.0             | .NET 8.0             | RunningValueTask<T> | 2,881.59 ns | 0.1450 |    2440 B |
-//| KunetRunningValueTaskT | ShortRun-.NET 8.0             | .NET 8.0             | RunningValueTask<T> |   432.41 ns | 0.0677 |    1136 B |
-//| StakxRunningValueTaskT | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | RunningValueTask<T> | 7,029.54 ns | 0.5951 |    3755 B |
-//| KunetRunningValueTaskT | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | RunningValueTask<T> | 1,659.73 ns | 0.3014 |    1902 B |
-//| StakxTask              | ShortRun-.NET 8.0             | .NET 8.0             | Task                |   906.45 ns | 0.0448 |     752 B |
-//| KunetTask              | ShortRun-.NET 8.0             | .NET 8.0             | Task                |    51.98 ns | 0.0157 |     264 B |
-//| StakxTask              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task                | 3,237.15 ns | 0.1793 |    1140 B |
-//| KunetTask              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task                |   108.91 ns | 0.0459 |     289 B |
-//| StakxTaskT             | ShortRun-.NET 8.0             | .NET 8.0             | Task<T>             | 1,352.58 ns | 0.0648 |    1144 B |
-//| KunetTaskT             | ShortRun-.NET 8.0             | .NET 8.0             | Task<T>             |   164.39 ns | 0.0310 |     520 B |
-//| StakxTaskT             | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task<T>             | 4,407.14 ns | 0.3281 |    2071 B |
-//| KunetTaskT             | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task<T>             |   585.02 ns | 0.1411 |     891 B |
-//| StakxValueTask         | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask           | 1,722.44 ns | 0.0629 |    1080 B |
-//| KunetValueTask         | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask           |    54.16 ns | 0.0196 |     328 B |
-//| StakxValueTask         | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask           | 3,652.60 ns | 0.2022 |    1276 B |
-//| KunetValueTask         | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask           |   121.72 ns | 0.0572 |     361 B |
-//| StakxValueTaskT        | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask<T>        | 2,134.08 ns | 0.0877 |    1472 B |
-//| KunetValueTaskT        | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask<T>        |   173.59 ns | 0.0353 |     592 B |
-//| StakxValueTaskT        | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask<T>        | 4,612.15 ns | 0.3204 |    2055 B |
-//| KunetValueTaskT        | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask<T>        |   609.95 ns | 0.1402 |     883 B |
-//| StakxVoid              | ShortRun-.NET 8.0             | .NET 8.0             | Void                |    76.92 ns | 0.0062 |     104 B |
-//| KunetVoid              | ShortRun-.NET 8.0             | .NET 8.0             | Void                |   144.37 ns | 0.0062 |     104 B |
-//| StakxVoid              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Void                | 1,101.19 ns | 0.0515 |     329 B |
-//| KunetVoid              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Void                | 1,488.42 ns | 0.0629 |     401 B |
+//| StakxRunningTaskT      | ShortRun-.NET 8.0             | .NET 8.0             | RunningTask<T>      | 1,988.02 ns | 0.1221 |    2104 B |
+//| KunetRunningTaskT      | ShortRun-.NET 8.0             | .NET 8.0             | RunningTask<T>      |   304.62 ns | 0.0539 |     904 B |
+//| StakxRunningTaskT      | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | RunningTask<T>      | 6,746.47 ns | 0.5493 |    3490 B |
+//| KunetRunningTaskT      | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | RunningTask<T>      | 1,191.40 ns | 0.2537 |    1597 B |
+//| StakxRunningValueTaskT | ShortRun-.NET 8.0             | .NET 8.0             | RunningValueTask<T> | 2,847.12 ns | 0.1450 |    2440 B |
+//| KunetRunningValueTaskT | ShortRun-.NET 8.0             | .NET 8.0             | RunningValueTask<T> |   314.22 ns | 0.0587 |     984 B |
+//| StakxRunningValueTaskT | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | RunningValueTask<T> | 7,112.27 ns | 0.5951 |    3755 B |
+//| KunetRunningValueTaskT | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | RunningValueTask<T> | 1,230.46 ns | 0.2651 |    1677 B |
+//| StakxTask              | ShortRun-.NET 8.0             | .NET 8.0             | Task                |   880.12 ns | 0.0448 |     752 B |
+//| KunetTask              | ShortRun-.NET 8.0             | .NET 8.0             | Task                |    28.58 ns | 0.0110 |     184 B |
+//| StakxTask              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task                | 3,242.71 ns | 0.1793 |    1140 B |
+//| KunetTask              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task                |    45.88 ns | 0.0293 |     185 B |
+//| StakxTaskT             | ShortRun-.NET 8.0             | .NET 8.0             | Task<T>             | 1,304.30 ns | 0.0668 |    1144 B |
+//| KunetTaskT             | ShortRun-.NET 8.0             | .NET 8.0             | Task<T>             |   133.39 ns | 0.0262 |     440 B |
+//| StakxTaskT             | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task<T>             | 4,425.31 ns | 0.3281 |    2071 B |
+//| KunetTaskT             | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Task<T>             |   490.25 ns | 0.1249 |     786 B |
+//| StakxValueTask         | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask           | 1,671.27 ns | 0.0629 |    1080 B |
+//| KunetValueTask         | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask           |    37.36 ns | 0.0148 |     248 B |
+//| StakxValueTask         | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask           | 3,627.59 ns | 0.2022 |    1276 B |
+//| KunetValueTask         | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask           |    53.79 ns | 0.0395 |     249 B |
+//| StakxValueTaskT        | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask<T>        | 2,096.30 ns | 0.0877 |    1472 B |
+//| KunetValueTaskT        | ShortRun-.NET 8.0             | .NET 8.0             | ValueTask<T>        |   144.43 ns | 0.0300 |     504 B |
+//| StakxValueTaskT        | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask<T>        | 4,605.92 ns | 0.3204 |    2055 B |
+//| KunetValueTaskT        | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | ValueTask<T>        |   499.61 ns | 0.1221 |     770 B |
+//| StakxVoid              | ShortRun-.NET 8.0             | .NET 8.0             | Void                |    75.74 ns | 0.0062 |     104 B |
+//| KunetVoid              | ShortRun-.NET 8.0             | .NET 8.0             | Void                |    18.77 ns | 0.0062 |     104 B |
+//| StakxVoid              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Void                | 1,089.48 ns | 0.0515 |     329 B |
+//| KunetVoid              | ShortRun-.NET Framework 4.8.1 | .NET Framework 4.8.1 | Void                |    33.64 ns | 0.0166 |     104 B |
