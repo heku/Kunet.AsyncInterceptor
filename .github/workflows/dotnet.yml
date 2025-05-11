@@ -23,7 +23,7 @@ jobs:
     - name: Build and Pack
       run: |
           dotnet build -c Release --version-suffix build.${{github.run_number}}0
-          dotnet test -c Release --no-build --verbosity normal
+          dotnet test -c Release --no-build --verbosity normal --framework net8.0
           dotnet pack -c Release --no-build -o output './Kunet.AsyncInterceptor/Kunet.AsyncInterceptor.csproj'
 
     - name: Release and Publish
