@@ -1,6 +1,4 @@
 ﻿using Castle.DynamicProxy;
-using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Kunet.AsyncInterceptor;
