@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Kunet.AsyncInterceptor;
@@ -9,7 +10,8 @@ internal sealed class AsyncAdapterOfTask<T>(IInvocation invocation) : AsyncAdapt
 
     public override object ConvertToReturnTask(ValueTask interceptingTask) => ConvertToTask(interceptingTask);
 
-    public async Task<T> ConvertToTask(ValueTask interceptingTask)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private async Task<T> ConvertToTask(ValueTask interceptingTask)
     {
         await interceptingTask.ConfigureAwait(false);
         return (T)(AsyncResult ?? default(T));
